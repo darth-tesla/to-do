@@ -1,8 +1,24 @@
 body {
   font-family: "Montserrat";
-  font-size: 16px;
+  font-size: 14px;
+  overflow: hidden;
+  background: url("/default-bg.jpg") no-repeat;
+  background-size: cover;
 }
 
 h1 {
   margin: 0;
+}
+
+a {
+  text-decoration: none;
+}
+
+.container {
+  max-width: 1240px;
+  margin: auto;
+}
+
+.side-padding {
+  padding: 0 40px;
 }

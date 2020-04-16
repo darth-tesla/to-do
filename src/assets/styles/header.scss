@@ -1,0 +1,10 @@
+.header {
+  background-color: $default;
+  padding: 10px 40px;
+  text-align: center;
+  &__title {
+    font-family: "Montserrat-Bold", Arial, Helvetica, sans-serif;
+    color: #ffffff;
+    text-transform: uppercase;
+  }
+}

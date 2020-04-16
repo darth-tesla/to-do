@@ -5,4 +5,12 @@ html(lang="en")
     meta(name="viewport", content="width=device-width, initial-scale=1.0")
     title To-Do list
   body
-    h1 HELLO WORLD
+    header.header
+      h1.header__title To-Do list
+    main.main
+      .form-section
+        form.form
+          input.form__task-name(type="text" placeholder="Введите название задачи" required)
+          textarea.form__task(placeholder="Введите описание задачи" required)
+          a.form__btn(href="#") Добавить задачу
+      .tasks-section
