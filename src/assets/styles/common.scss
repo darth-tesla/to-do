@@ -1,12 +1,17 @@
 body {
+  height: 100vh;
   font-family: "Montserrat";
   font-size: 14px;
-  overflow: hidden;
   background: url("/default-bg.jpg") no-repeat;
   background-size: cover;
+  background-attachment: fixed;
 }
 
-h1 {
+h1, h3 {
+  margin: 0;
+}
+
+p {
   margin: 0;
 }
 

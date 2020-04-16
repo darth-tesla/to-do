@@ -6,7 +6,7 @@
   background-color: #ffffff;
   border-radius: 10px;
   &__task-name,
-  &__task {
+  &__task-desc {
     box-sizing: border-box;
     margin-bottom: 15px;
     padding: 10px;
@@ -15,7 +15,7 @@
   &__task-name {
     height: 40px;
   }
-  &__task {
+  &__task-desc {
     height: 180px;
     resize: none;
   }

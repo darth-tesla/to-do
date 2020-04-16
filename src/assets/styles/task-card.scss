@@ -1,0 +1,50 @@
+.task-card {
+  flex-basis: 44%;
+  margin-bottom: 20px;
+  padding: 20px;
+  background-color: #ffffff;
+  border-radius: 10px;
+  &__task-name {
+    margin-bottom: 10px;
+    font-family: "Montserrat-Medium", Arial, Helvetica, sans-serif;
+  }
+  &__task-desc {
+    margin-bottom: 40px;
+  }
+  &__btns {
+    display: flex;
+    align-items: flex-end;
+  }
+  &__complete,
+  &__edit {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 10px;
+    padding: 10px 20px;
+    text-decoration: none;
+    color: #ffffff;
+    border-radius: 4px;
+    transition: 300ms;
+  }
+  &__complete {
+    background-color: $complete;
+    &:hover {
+      background-color: $complete-hover;
+    }
+  }
+  &__edit {
+    background-color: $default;
+    &:hover {
+      background-color: $default-hover;
+    }
+  }
+  &__remove {
+    margin-left: auto;
+    color: $danger;
+    transition: 300ms;
+    &:hover {
+      color: $danger-hover;
+    }
+  }
+}

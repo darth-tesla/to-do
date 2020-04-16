@@ -1,5 +1,5 @@
 doctype html
-html(lang="en")
+html(lang="ru")
   head
     meta(charset="UTF-8")
     meta(name="viewport", content="width=device-width, initial-scale=1.0")
@@ -11,6 +11,7 @@ html(lang="en")
       .form-section
         form.form
           input.form__task-name(type="text" placeholder="Введите название задачи" required)
-          textarea.form__task(placeholder="Введите описание задачи" required)
+          textarea.form__task-desc(placeholder="Введите описание задачи" required)
           a.form__btn(href="#") Добавить задачу
       .tasks-section
+        .tasks-section__container
