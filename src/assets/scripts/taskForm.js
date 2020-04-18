@@ -10,7 +10,9 @@ const taskCardButtonsPattern = `<a class="task-card__complete" href="#"> Вып�
 addTaskButton.addEventListener("click", (e) => {
   e.preventDefault();
   if (taskNameInput.value !== "" && taskDescInput.value !== "") {
-    return addNewTask(taskNameInput.value, taskDescInput.value);
+    addNewTask(taskNameInput.value, taskDescInput.value);
+    form.reset();
+    return;
   }
 });
 
@@ -38,4 +40,6 @@ function addNewTask(taskName, taskDesc) {
   fragment.appendChild(card);
 
   taskCardsContainer.appendChild(fragment);
+
+  return;
 }
