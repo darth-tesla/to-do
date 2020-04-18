@@ -1,3 +1,5 @@
+const tasks = {};
+
 const form = document.querySelector(".form");
 const taskNameInput = document.querySelector(".form__task-name");
 const taskDescInput = document.querySelector(".form__task-desc");
@@ -7,18 +9,49 @@ const taskCardButtonsPattern = `<a class="task-card__complete" href="#"> Вып�
                                 <a class="task-card__edit" href="#"> Редактировать</a>
                                 <a class="task-card__remove" href="#"> Удалить</a>`;
 
-addTaskButton.addEventListener("click", (e) => {
-  e.preventDefault();
-  if (taskNameInput.value !== "" && taskDescInput.value !== "") {
-    addNewTask(taskNameInput.value, taskDescInput.value);
-    form.reset();
-    return;
-  }
-});
+form.addEventListener("submit", addNewTask);
 
-function addNewTask(taskName, taskDesc) {
+renderAllTasks(tasks);
+
+function renderAllTasks(tasks) {
+  if (!tasks) {
+    console.error("Передайте объект с задачами!");
+  }
+
   const fragment = document.createDocumentFragment();
 
+  Object.values(tasks).forEach((task) => {
+    const newTask = addNewTaskOnPage(task);
+    fragment.appendChild(newTask);
+  });
+
+  taskCardsContainer.appendChild(fragment);
+}
+
+function addNewTask(e) {
+  e.preventDefault();
+  const taskName = taskNameInput.value;
+  const taskDesc = taskDescInput.value;
+
+  const taskToObj = addNewTaskToObject(taskName, taskDesc);
+  const taskToPage = addNewTaskOnPage(taskToObj);
+  taskCardsContainer.insertAdjacentElement("afterbegin", taskToPage);
+}
+
+function addNewTaskToObject(taskName, taskDesc) {
+  const newTask = {
+    taskName,
+    taskDesc,
+    completed: false,
+    _id: `task-${Math.random()}`,
+  };
+
+  tasks[newTask._id] = newTask;
+
+  return { ...newTask };
+}
+
+function addNewTaskOnPage({ taskName, taskDesc, _id }) {
   const card = document.createElement("div");
   const name = document.createElement("h3");
   const desc = document.createElement("p");
@@ -37,9 +70,7 @@ function addNewTask(taskName, taskDesc) {
   card.appendChild(desc);
   card.appendChild(buttons);
 
-  fragment.appendChild(card);
-
-  taskCardsContainer.appendChild(fragment);
-
-  return;
+  return card;
 }
+
+
