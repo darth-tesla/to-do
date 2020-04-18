@@ -6,9 +6,11 @@
   &__task-name {
     margin-bottom: 10px;
     font-family: "Montserrat-Medium", Arial, Helvetica, sans-serif;
+    overflow-wrap: break-word;
   }
   &__task-desc {
     margin-bottom: 40px;
+    overflow-wrap: break-word;
   }
   &__btns {
     display: flex;
