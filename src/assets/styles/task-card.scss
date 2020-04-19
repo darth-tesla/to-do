@@ -8,10 +8,18 @@
     margin-bottom: 10px;
     font-family: "Montserrat-Medium", Arial, Helvetica, sans-serif;
     overflow-wrap: break-word;
+    &_is-complete {
+      text-decoration: line-through;
+      color: $borders;
+    }
   }
   &__task-desc {
     margin-bottom: 40px;
     overflow-wrap: break-word;
+    &_is-complete {
+      text-decoration: line-through;
+      color: $borders;
+    }
   }
   &__btns {
     display: flex;
@@ -34,11 +42,25 @@
     &:hover {
       background-color: $complete-hover;
     }
+    &_is-complete {
+      background-color: $danger;
+      &:hover {
+        background-color: $danger-hover;
+      }
+    }
   }
   &__edit {
     background-color: $default;
     &:hover {
       background-color: $default-hover;
+    }
+    &_inaccessible {
+      background-color: $borders;
+      cursor: default;
+      &:hover {
+        background-color: $borders;
+        cursor: default;
+      }
     }
   }
   &__remove {

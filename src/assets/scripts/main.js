@@ -1,4 +1,11 @@
-const tasks = {};
+const tasks = {
+  "123091234523": {
+    taskName: "Помыть кота",
+    taskDesc: "Он чумазый, что пиздец",
+    complete: false,
+    _id: "123091234523",
+  },
+};
 
 const form = document.querySelector(".form");
 const taskNameInput = document.querySelector(".form__task-name");
@@ -11,6 +18,7 @@ const taskCardButtonsPattern = `<a class="task-card__complete" href="#"> Вып�
 
 form.addEventListener("submit", addNewTask);
 taskCardsContainer.addEventListener("click", deleteTask);
+taskCardsContainer.addEventListener("click", completeTask);
 
 renderAllTasks(tasks);
 
@@ -101,4 +109,47 @@ function deleteTaskFromObject(id) {
 function deleteTaskFromPage(confirmed, task) {
   if (!confirmed) return;
   task.remove();
+}
+
+function completeTask(e) {
+  if (e.target.classList.contains("task-card__complete")) {
+    e.preventDefault();
+    const parent = e.target.closest("[data-task-id]");
+    const completeProperty = objectCompletePropertySwitcher(
+      parent.getAttribute("data-task-id")
+    );
+
+    pageCompletePropertySwitcher(completeProperty, parent, e.target);
+  }
+}
+
+function objectCompletePropertySwitcher(id) {
+  if (tasks[id].complete) {
+    tasks[id].complete = false;
+  } else {
+    tasks[id].complete = true;
+  }
+  return tasks[id].complete;
+}
+
+function pageCompletePropertySwitcher(isComplete, taskCard, button) {
+  const title = taskCard.querySelector(".task-card__task-name");
+  const desc = taskCard.querySelector(".task-card__task-desc");
+  const editButton = taskCard.querySelector(".task-card__edit");
+
+  if (isComplete) {
+    button.textContent = "Не выполнено";
+    button.classList.add("task-card__complete_is-complete");
+    title.classList.add("task-card__task-name_is-complete");
+    desc.classList.add("task-card__task-desc_is-complete");
+    editButton.classList.add("task-card__edit_inaccessible");
+    editButton.removeAttribute("href")
+  } else {
+    button.textContent = "Выполнено";
+    button.classList.remove("task-card__complete_is-complete");
+    title.classList.remove("task-card__task-name_is-complete");
+    desc.classList.remove("task-card__task-desc_is-complete");
+    editButton.classList.remove("task-card__edit_inaccessible");
+    editButton.setAttribute("href", "#")
+  }
 }
