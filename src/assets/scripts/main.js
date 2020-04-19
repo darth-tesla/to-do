@@ -37,6 +37,8 @@ function renderAllTasks(tasks) {
   taskCardsContainer.appendChild(fragment);
 }
 
+/* start! add task functions */
+
 function addNewTask(e) {
   e.preventDefault();
   const taskName = taskNameInput.value;
@@ -86,6 +88,10 @@ function addNewTaskOnPage({ taskName, taskDesc, _id }) {
   return card;
 }
 
+/* end! add task functions */
+
+/* start! delete task functions */
+
 function deleteTask(e) {
   if (e.target.classList.contains("task-card__remove")) {
     e.preventDefault();
@@ -110,6 +116,10 @@ function deleteTaskFromPage(confirmed, task) {
   if (!confirmed) return;
   task.remove();
 }
+
+/* end! delete task functions */
+
+/* start! complete task functions */
 
 function completeTask(e) {
   if (e.target.classList.contains("task-card__complete")) {
@@ -153,3 +163,5 @@ function pageCompletePropertySwitcher(isComplete, taskCard, button) {
     editButton.setAttribute("href", "#")
   }
 }
+
+/* end! complete task functions */
