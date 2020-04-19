@@ -181,16 +181,18 @@ function editTask(e) {
     const desc = parent.querySelector(".task-card__task-desc");
     const completeButton = parent.querySelector(".task-card__complete");
 
-    editMode(parent, title, desc, e.target, completeButton);
+    toggleEditMode(title, desc, e.target, completeButton);
   }
 }
 
-function editMode(taskCard, taskName, taskDesc, editButton, completeButton) {
+function toggleEditMode(taskName, taskDesc, editButton, completeButton) {
   if (editButton.textContent === "Редактировать") {
     taskName.setAttribute("contentEditable", "");
+    taskName.setAttribute("spellcheck", "false");
     taskName.focus();
     taskName.classList.add("task-card__task-name_box-shadow");
     taskDesc.setAttribute("contentEditable", "");
+    taskDesc.setAttribute("spellcheck", "false");
     taskDesc.classList.add("task-card__task-desc_box-shadow");
     editButton.textContent = "Готово";
     editButton.classList.add("task-card__edit_editable");
@@ -198,8 +200,10 @@ function editMode(taskCard, taskName, taskDesc, editButton, completeButton) {
     completeButton.removeAttribute("href");
   } else {
     taskName.removeAttribute("contentEditable");
+    taskName.removeAttribute("spellcheck");
     taskName.classList.remove("task-card__task-name_box-shadow");
     taskDesc.removeAttribute("contentEditable");
+    taskDesc.removeAttribute("spellcheck");
     taskDesc.classList.remove("task-card__task-desc_box-shadow");
     editButton.textContent = "Редактировать";
     editButton.classList.remove("task-card__edit_editable");

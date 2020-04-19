@@ -7,7 +7,9 @@
   &__task-name {
     margin-bottom: 10px;
     padding: 4px;
+    border-radius: 3px;
     font-family: "Montserrat-Medium", Arial, Helvetica, sans-serif;
+    outline: none;
     overflow-wrap: break-word;
     &_is-complete {
       text-decoration: line-through;
@@ -20,6 +22,8 @@
   &__task-desc {
     margin-bottom: 40px;
     padding: 4px;
+    border-radius: 3px;
+    outline: none;
     overflow-wrap: break-word;
     &_is-complete {
       text-decoration: line-through;
