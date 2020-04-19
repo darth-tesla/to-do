@@ -10,6 +10,7 @@ const taskCardButtonsPattern = `<a class="task-card__complete" href="#"> Вып�
                                 <a class="task-card__remove" href="#"> Удалить</a>`;
 
 form.addEventListener("submit", addNewTask);
+taskCardsContainer.addEventListener("click", deleteTask);
 
 renderAllTasks(tasks);
 
@@ -36,6 +37,8 @@ function addNewTask(e) {
   const taskToObj = addNewTaskToObject(taskName, taskDesc);
   const taskToPage = addNewTaskOnPage(taskToObj);
   taskCardsContainer.insertAdjacentElement("afterbegin", taskToPage);
+
+  form.reset();
 }
 
 function addNewTaskToObject(taskName, taskDesc) {
@@ -70,7 +73,32 @@ function addNewTaskOnPage({ taskName, taskDesc, _id }) {
   card.appendChild(desc);
   card.appendChild(buttons);
 
+  card.setAttribute("data-task-id", _id);
+
   return card;
 }
 
+function deleteTask(e) {
+  if (e.target.classList.contains("task-card__remove")) {
+    e.preventDefault();
+    const parent = e.target.closest("[data-task-id]");
+    const isConfirmed = deleteTaskFromObject(
+      parent.getAttribute("data-task-id")
+    );
+    deleteTaskFromPage(isConfirmed, parent);
+  }
+}
 
+function deleteTaskFromObject(id) {
+  const isConfirmed = confirm(
+    `Вы действительно хотите удалить задачу "${tasks[id].taskName}"?`
+  );
+  if (!isConfirmed) return isConfirmed;
+  delete tasks[id];
+  return isConfirmed;
+}
+
+function deleteTaskFromPage(confirmed, task) {
+  if (!confirmed) return;
+  task.remove();
+}
