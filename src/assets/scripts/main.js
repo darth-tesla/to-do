@@ -12,13 +12,14 @@ const taskNameInput = document.querySelector(".form__task-name");
 const taskDescInput = document.querySelector(".form__task-desc");
 const addTaskButton = document.querySelector(".form__btn");
 const taskCardsContainer = document.querySelector(".tasks-section__container");
-const taskCardButtonsPattern = `<a class="task-card__complete" href="#"> Выполнено</a>
-                                <a class="task-card__edit" href="#"> Редактировать</a>
-                                <a class="task-card__remove" href="#"> Удалить</a>`;
+const taskCardButtonsPattern = `<a class="task-card__complete" href="#">Выполнено</a>
+                                <a class="task-card__edit" href="#">Редактировать</a>
+                                <a class="task-card__remove" href="#">Удалить</a>`;
 
 form.addEventListener("submit", addNewTask);
 taskCardsContainer.addEventListener("click", deleteTask);
 taskCardsContainer.addEventListener("click", completeTask);
+taskCardsContainer.addEventListener("click", editTask);
 
 renderAllTasks(tasks);
 
@@ -122,7 +123,10 @@ function deleteTaskFromPage(confirmed, task) {
 /* start! complete task functions */
 
 function completeTask(e) {
-  if (e.target.classList.contains("task-card__complete")) {
+  if (
+    e.target.classList.contains("task-card__complete") &&
+    e.target.getAttribute("href") === "#"
+  ) {
     e.preventDefault();
     const parent = e.target.closest("[data-task-id]");
     const completeProperty = objectCompletePropertySwitcher(
@@ -153,15 +157,53 @@ function pageCompletePropertySwitcher(isComplete, taskCard, button) {
     title.classList.add("task-card__task-name_is-complete");
     desc.classList.add("task-card__task-desc_is-complete");
     editButton.classList.add("task-card__edit_inaccessible");
-    editButton.removeAttribute("href")
+    editButton.removeAttribute("href");
   } else {
     button.textContent = "Выполнено";
     button.classList.remove("task-card__complete_is-complete");
     title.classList.remove("task-card__task-name_is-complete");
     desc.classList.remove("task-card__task-desc_is-complete");
     editButton.classList.remove("task-card__edit_inaccessible");
-    editButton.setAttribute("href", "#")
+    editButton.setAttribute("href", "#");
   }
 }
 
 /* end! complete task functions */
+
+function editTask(e) {
+  if (
+    e.target.classList.contains("task-card__edit") &&
+    e.target.getAttribute("href") === "#"
+  ) {
+    e.preventDefault();
+    const parent = e.target.closest("[data-task-id]");
+    const title = parent.querySelector(".task-card__task-name");
+    const desc = parent.querySelector(".task-card__task-desc");
+    const completeButton = parent.querySelector(".task-card__complete");
+
+    editMode(parent, title, desc, e.target, completeButton);
+  }
+}
+
+function editMode(taskCard, taskName, taskDesc, editButton, completeButton) {
+  if (editButton.textContent === "Редактировать") {
+    taskName.setAttribute("contentEditable", "");
+    taskName.focus();
+    taskName.classList.add("task-card__task-name_box-shadow");
+    taskDesc.setAttribute("contentEditable", "");
+    taskDesc.classList.add("task-card__task-desc_box-shadow");
+    editButton.textContent = "Готово";
+    editButton.classList.add("task-card__edit_editable");
+    completeButton.classList.add("task-card__complete_inaccessible");
+    completeButton.removeAttribute("href");
+  } else {
+    taskName.removeAttribute("contentEditable");
+    taskName.classList.remove("task-card__task-name_box-shadow");
+    taskDesc.removeAttribute("contentEditable");
+    taskDesc.classList.remove("task-card__task-desc_box-shadow");
+    editButton.textContent = "Редактировать";
+    editButton.classList.remove("task-card__edit_editable");
+    completeButton.classList.remove("task-card__complete_inaccessible");
+    completeButton.setAttribute("href", "#");
+  }
+}

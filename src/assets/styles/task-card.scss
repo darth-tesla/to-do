@@ -6,19 +6,27 @@
   box-shadow: 0px 10px 10px 3px rgba(0, 0, 0, 0.5);
   &__task-name {
     margin-bottom: 10px;
+    padding: 4px;
     font-family: "Montserrat-Medium", Arial, Helvetica, sans-serif;
     overflow-wrap: break-word;
     &_is-complete {
       text-decoration: line-through;
       color: $borders;
     }
+    &_box-shadow {
+      box-shadow: 0px 0px 5px 2px $complete-hover;
+    }
   }
   &__task-desc {
     margin-bottom: 40px;
+    padding: 4px;
     overflow-wrap: break-word;
     &_is-complete {
       text-decoration: line-through;
       color: $borders;
+    }
+    &_box-shadow {
+      box-shadow: 0px 0px 5px 2px $complete-hover;
     }
   }
   &__btns {
@@ -48,6 +56,14 @@
         background-color: $danger-hover;
       }
     }
+    &_inaccessible {
+      background-color: $borders;
+      cursor: default;
+      &:hover {
+        background-color: $borders;
+        cursor: default;
+      }
+    }
   }
   &__edit {
     background-color: $default;
@@ -60,6 +76,12 @@
       &:hover {
         background-color: $borders;
         cursor: default;
+      }
+    }
+    &_editable {
+      background-color: $complete;
+      &:hover {
+        background-color: $complete-hover;
       }
     }
   }
