@@ -1,11 +1,4 @@
-const tasks = {
-  "123091234523": {
-    taskName: "Помыть кота",
-    taskDesc: "Он чумазый, что пиздец",
-    complete: false,
-    _id: "123091234523",
-  },
-};
+const tasks = {};
 
 const form = document.querySelector(".form");
 const taskNameInput = document.querySelector(".form__task-name");
@@ -61,6 +54,8 @@ function addNewTaskToObject(taskName, taskDesc) {
   };
 
   tasks[newTask._id] = newTask;
+
+  addTaskToLocalStorage(newTask._id, newTask);
 
   return { ...newTask };
 }
@@ -170,6 +165,8 @@ function pageCompletePropertySwitcher(isComplete, taskCard, button) {
 
 /* end! complete task functions */
 
+/* start! edit task functions */
+
 function editTask(e) {
   if (
     e.target.classList.contains("task-card__edit") &&
@@ -211,3 +208,7 @@ function toggleEditMode(taskName, taskDesc, editButton, completeButton) {
     completeButton.setAttribute("href", "#");
   }
 }
+
+/* end! edit task functions */
+
+
