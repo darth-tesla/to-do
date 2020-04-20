@@ -1,5 +1,5 @@
 const tasks = {
-  "19246916918274": {
+  /*   "19246916918274": {
     taskName: "Wash cat",
     taskDesc:
       "Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptas cum, culpa earum animi sapiente debitis, ducimus asperiores illo ea, iure odit eligendi sed omnis deserunt. Nulla eveniet tempora veniam reprehenderit sint accusamus explicabo minima. Rem incidunt doloremque repellat dignissimos soluta facilis, velit tempore impedit voluptatibus recusandae itaque officiis? Adipisci dignissimos soluta aspernatur, sed officiis ab quis quod amet natus. Cumque voluptates iste nisi, reiciendis deserunt eum corporis rerum, commodi veniam quaerat mollitia id distinctio provident, nihil veritatis rem omnis voluptatem numquam tempore eligendi eius maxime odio repellat minus. Cumque quam tempora facere, facilis iste nihil veritatis deleniti eaque blanditiis accusantium!",
@@ -19,7 +19,7 @@ const tasks = {
       "Adipisci dignissimos soluta aspernatur, sed officiis ab quis quod amet natus. Cumque voluptates iste nisi, reiciendis deserunt eum corporis rerum, commodi veniam quaerat mollitia id distinctio provident, nihil veritatis rem omnis voluptatem numquam tempore eligendi eius maxime odio repellat minus. Cumque quam tempora facere, facilis iste nihil veritatis deleniti eaque blanditiis accusantium!",
     completed: false,
     _id: "2938759245692436598237",
-  },
+  }, */
 };
 
 const themes = {
@@ -74,11 +74,20 @@ function renderAllTasks(tasks) {
   }
 
   const fragment = document.createDocumentFragment();
+  const arrayOfTasks = [];
 
   Object.values(tasks).forEach((task) => {
+    arrayOfTasks.push(task);
+  });
+
+  const sortedArray = arrayOfTasks.sort(
+    ({ timestamp: a }, { timestamp: b }) => b - a
+  );
+
+  sortedArray.forEach((task) => {
     const newTask = addNewTaskOnPage(task);
     fragment.appendChild(newTask);
-  });
+  })
 
   taskCardsContainer.appendChild(fragment);
 }
@@ -89,8 +98,9 @@ function addNewTask(e) {
   e.preventDefault();
   const taskName = taskNameInput.value;
   const taskDesc = taskDescInput.value;
+  const timestamp = Date.now();
 
-  const taskToObj = addNewTaskToObject(taskName, taskDesc);
+  const taskToObj = addNewTaskToObject(taskName, taskDesc, timestamp);
   addNewTaskToLocalStorage(taskToObj);
   const taskToPage = addNewTaskOnPage(taskToObj);
   taskCardsContainer.insertAdjacentElement("afterbegin", taskToPage);
@@ -98,10 +108,11 @@ function addNewTask(e) {
   form.reset();
 }
 
-function addNewTaskToObject(taskName, taskDesc) {
+function addNewTaskToObject(taskName, taskDesc, timestamp) {
   const newTask = {
     taskName,
     taskDesc,
+    timestamp,
     completed: false,
     _id: `task-${Math.random()}`,
   };
@@ -305,7 +316,6 @@ function saveEditedTaskInLocalStorage(taskName, taskDesc, editButton) {
   const taskCard = editButton.closest(".task-card");
   const id = taskCard.getAttribute("data-task-id");
   const localStorageTask = JSON.parse(localStorage.getItem(id));
-  console.log(localStorageTask);
   localStorageTask.taskName = taskName;
   localStorageTask.taskDesc = taskDesc;
   localStorage.setItem(id, JSON.stringify(localStorageTask));
