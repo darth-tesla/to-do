@@ -1,4 +1,11 @@
-const tasks = {};
+const tasks = {
+  "19246916918274": {
+    taskName: "Wash fucking cat",
+    taskDesc: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptas cum, culpa earum animi sapiente debitis, ducimus asperiores illo ea, iure odit eligendi sed omnis deserunt. Nulla eveniet tempora veniam reprehenderit sint accusamus explicabo minima. Rem incidunt doloremque repellat dignissimos soluta facilis, velit tempore impedit voluptatibus recusandae itaque officiis? Adipisci dignissimos soluta aspernatur, sed officiis ab quis quod amet natus. Cumque voluptates iste nisi, reiciendis deserunt eum corporis rerum, commodi veniam quaerat mollitia id distinctio provident, nihil veritatis rem omnis voluptatem numquam tempore eligendi eius maxime odio repellat minus. Cumque quam tempora facere, facilis iste nihil veritatis deleniti eaque blanditiis accusantium!",
+    completed: false,
+    _id: "19246916918274",
+  }
+};
 
 const form = document.querySelector(".form");
 const taskNameInput = document.querySelector(".form__task-name");
@@ -55,7 +62,7 @@ function addNewTaskToObject(taskName, taskDesc) {
 
   tasks[newTask._id] = newTask;
 
-  addTaskToLocalStorage(newTask._id, newTask);
+  console.log(tasks)
 
   return { ...newTask };
 }
