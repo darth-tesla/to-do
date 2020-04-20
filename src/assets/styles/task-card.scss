@@ -2,7 +2,7 @@
   width: 100%;
   margin-bottom: 20px;
   padding: 20px;
-  background-color: #ffffff;
+  background-color: var(--card);
   border-radius: 10px;
   box-shadow: 0px 10px 10px 3px rgba(0, 0, 0, 0.5);
   box-sizing: border-box;
@@ -15,10 +15,10 @@
     overflow-wrap: break-word;
     &_is-complete {
       text-decoration: line-through;
-      color: $borders;
+      color: var(--borders);
     }
     &_box-shadow {
-      box-shadow: 0px 0px 5px 2px $complete-hover;
+      box-shadow: 0px 0px 5px 2px var(--complete-hover);
     }
   }
   &__task-desc {
@@ -29,10 +29,10 @@
     overflow-wrap: break-word;
     &_is-complete {
       text-decoration: line-through;
-      color: $borders;
+      color: var(--borders);
     }
     &_box-shadow {
-      box-shadow: 0px 0px 5px 2px $complete-hover;
+      box-shadow: 0px 0px 5px 2px var(--complete-hover);
     }
   }
   &__btns {
@@ -60,51 +60,51 @@
     }
   }
   &__complete {
-    background-color: $complete;
+    background-color: var(--complete);
     &:hover {
-      background-color: $complete-hover;
+      background-color: var(--complete-hover);
     }
     &_is-complete {
-      background-color: $danger;
+      background-color: var(--danger);
       &:hover {
-        background-color: $danger-hover;
+        background-color: var(--danger-hover);
       }
     }
     &_inaccessible {
-      background-color: $borders;
+      background-color: var(--borders);
       cursor: default;
       &:hover {
-        background-color: $borders;
+        background-color: var(--borders);
         cursor: default;
       }
     }
   }
   &__edit {
-    background-color: $default;
+    background-color: var(--default);
     &:hover {
-      background-color: $default-hover;
+      background-color: var(--default-hover);
     }
     &_inaccessible {
-      background-color: $borders;
+      background-color: var(--borders);
       cursor: default;
       &:hover {
-        background-color: $borders;
+        background-color: var(--borders);
         cursor: default;
       }
     }
     &_editable {
-      background-color: $complete;
+      background-color: var(--complete);
       &:hover {
-        background-color: $complete-hover;
+        background-color: var(--complete-hover);
       }
     }
   }
   &__remove {
     margin-left: auto;
-    color: $danger;
+    color: var(--danger);
     transition: 300ms;
     &:hover {
-      color: $danger-hover;
+      color: var(--danger-hover);
     }
     @media(max-width: $sm) {
       margin-left: 0;

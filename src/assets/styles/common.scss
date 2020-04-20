@@ -2,7 +2,7 @@ body {
   height: 100vh;
   font-family: "Montserrat";
   font-size: 14px;
-  background: url("/default-bg.jpg") no-repeat;
+  background: var(--bg);
   background-size: cover;
   background-attachment: fixed;
 }
