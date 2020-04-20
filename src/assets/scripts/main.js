@@ -22,10 +22,38 @@ const tasks = {
   },
 };
 
+const themes = {
+  default: {
+    "--bg": "url('/default-bg.jpg') no-repeat",
+    "--card": "#ffffff",
+    "--default": "hsla(242, 60%, 35%, 1)",
+    "--default-hover": "hsla(242, 90%, 35%, 1)",
+    "--complete": "hsla(124, 60%, 35%, 1)",
+    "--complete-hover": "hsla(124, 90%, 35%, 1)",
+    "--danger": "hsla(360, 60%, 35%, 1)",
+    "--danger-hover": "hsla(360, 90%, 35%, 1)",
+    "--borders": "hsla(242, 1%, 35%, 0.5)",
+    "--fog": "rgba(0, 0, 0, 0.6)",
+  },
+  dark: {
+    "--bg": "url('/dark-bg.jpg') no-repeat",
+    "--card": "hsla(30, 6%, 20%, 1)",
+    "--default": "hsla(242, 60%, 22%, 1)",
+    "--default-hover": "hsla(242, 90%, 35%, 1)",
+    "--complete": "hsla(124, 60%, 35%, 1)",
+    "--complete-hover": "hsla(124, 90%, 35%, 1)",
+    "--danger": "hsla(360, 94%, 45%, 1)",
+    "--danger-hover": "hsla(360, 94%, 60%, 1)",
+    "--borders": "hsla(242, 1%, 35%, 0.5)",
+    "--fog": "rgba(0, 0, 0, 0.6)",
+  },
+};
+
 const form = document.querySelector(".form");
 const taskNameInput = document.querySelector(".form__task-name");
 const taskDescInput = document.querySelector(".form__task-desc");
 const addTaskButton = document.querySelector(".form__btn");
+const changeThemeButton = document.querySelector(".header__select");
 const taskCardsContainer = document.querySelector(".tasks-section__container");
 const taskCardButtonsPattern = `<a class="task-card__complete" href="#">Выполнено</a>
                                 <a class="task-card__edit" href="#">Редактировать</a>
@@ -35,6 +63,7 @@ form.addEventListener("submit", addNewTask);
 taskCardsContainer.addEventListener("click", deleteTask);
 taskCardsContainer.addEventListener("click", completeTask);
 taskCardsContainer.addEventListener("click", editTask);
+changeThemeButton.addEventListener("change", changeTheme);
 
 renderAllTasks(tasks);
 
@@ -238,3 +267,15 @@ function toggleEditMode(taskName, taskDesc, editButton, completeButton) {
 }
 
 /* end! edit task functions */
+
+/* start! change theme functions */
+
+function changeTheme(e) {
+  const selectedTheme = changeThemeButton.value;
+  const themeFromObject = themes[selectedTheme];
+  Object.entries(themeFromObject).forEach(([key, value]) => {
+    document.documentElement.style.setProperty(key, value);
+  });
+}
+
+/* end! change theme functions */
