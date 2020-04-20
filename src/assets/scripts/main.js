@@ -1,10 +1,25 @@
 const tasks = {
   "19246916918274": {
-    taskName: "Wash fucking cat",
-    taskDesc: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptas cum, culpa earum animi sapiente debitis, ducimus asperiores illo ea, iure odit eligendi sed omnis deserunt. Nulla eveniet tempora veniam reprehenderit sint accusamus explicabo minima. Rem incidunt doloremque repellat dignissimos soluta facilis, velit tempore impedit voluptatibus recusandae itaque officiis? Adipisci dignissimos soluta aspernatur, sed officiis ab quis quod amet natus. Cumque voluptates iste nisi, reiciendis deserunt eum corporis rerum, commodi veniam quaerat mollitia id distinctio provident, nihil veritatis rem omnis voluptatem numquam tempore eligendi eius maxime odio repellat minus. Cumque quam tempora facere, facilis iste nihil veritatis deleniti eaque blanditiis accusantium!",
+    taskName: "Wash cat",
+    taskDesc:
+      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptas cum, culpa earum animi sapiente debitis, ducimus asperiores illo ea, iure odit eligendi sed omnis deserunt. Nulla eveniet tempora veniam reprehenderit sint accusamus explicabo minima. Rem incidunt doloremque repellat dignissimos soluta facilis, velit tempore impedit voluptatibus recusandae itaque officiis? Adipisci dignissimos soluta aspernatur, sed officiis ab quis quod amet natus. Cumque voluptates iste nisi, reiciendis deserunt eum corporis rerum, commodi veniam quaerat mollitia id distinctio provident, nihil veritatis rem omnis voluptatem numquam tempore eligendi eius maxime odio repellat minus. Cumque quam tempora facere, facilis iste nihil veritatis deleniti eaque blanditiis accusantium!",
     completed: false,
     _id: "19246916918274",
-  }
+  },
+  "203490978023840": {
+    taskName: "Eat brains",
+    taskDesc:
+      "Rem incidunt doloremque repellat dignissimos soluta facilis, velit tempore impedit voluptatibus recusandae itaque officiis? Adipisci dignissimos soluta aspernatur, sed officiis ab quis quod amet natus. Cumque voluptates iste nisi, reiciendis deserunt eum corporis rerum, commodi veniam quaerat mollitia id distinctio provident, nihil veritatis rem omnis voluptatem numquam tempore eligendi eius maxime odio repellat minus. Cumque quam tempora facere, facilis iste nihil veritatis deleniti eaque blanditiis accusantium!",
+    completed: true,
+    _id: "203490978023840",
+  },
+  "2938759245692436598237": {
+    taskName: "Go for a walk",
+    taskDesc:
+      "Adipisci dignissimos soluta aspernatur, sed officiis ab quis quod amet natus. Cumque voluptates iste nisi, reiciendis deserunt eum corporis rerum, commodi veniam quaerat mollitia id distinctio provident, nihil veritatis rem omnis voluptatem numquam tempore eligendi eius maxime odio repellat minus. Cumque quam tempora facere, facilis iste nihil veritatis deleniti eaque blanditiis accusantium!",
+    completed: false,
+    _id: "2938759245692436598237",
+  },
 };
 
 const form = document.querySelector(".form");
@@ -62,12 +77,12 @@ function addNewTaskToObject(taskName, taskDesc) {
 
   tasks[newTask._id] = newTask;
 
-  console.log(tasks)
+  console.log(tasks);
 
   return { ...newTask };
 }
 
-function addNewTaskOnPage({ taskName, taskDesc, _id }) {
+function addNewTaskOnPage({ taskName, taskDesc, completed, _id }) {
   const card = document.createElement("div");
   const name = document.createElement("h3");
   const desc = document.createElement("p");
@@ -87,6 +102,12 @@ function addNewTaskOnPage({ taskName, taskDesc, _id }) {
   card.appendChild(buttons);
 
   card.setAttribute("data-task-id", _id);
+
+  pageCompletePropertySwitcher(
+    completed,
+    card,
+    card.querySelector(".task-card__complete")
+  );
 
   return card;
 }
@@ -217,5 +238,3 @@ function toggleEditMode(taskName, taskDesc, editButton, completeButton) {
 }
 
 /* end! edit task functions */
-
-
