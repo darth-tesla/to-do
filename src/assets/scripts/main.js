@@ -65,6 +65,7 @@ taskCardsContainer.addEventListener("click", completeTask);
 taskCardsContainer.addEventListener("click", editTask);
 changeThemeButton.addEventListener("change", changeTheme);
 
+getAllTasksFromLocalStorage();
 renderAllTasks(tasks);
 
 function renderAllTasks(tasks) {
@@ -90,6 +91,7 @@ function addNewTask(e) {
   const taskDesc = taskDescInput.value;
 
   const taskToObj = addNewTaskToObject(taskName, taskDesc);
+  addNewTaskToLocalStorage(taskToObj);
   const taskToPage = addNewTaskOnPage(taskToObj);
   taskCardsContainer.insertAdjacentElement("afterbegin", taskToPage);
 
@@ -105,8 +107,6 @@ function addNewTaskToObject(taskName, taskDesc) {
   };
 
   tasks[newTask._id] = newTask;
-
-  console.log(tasks);
 
   return { ...newTask };
 }
@@ -141,6 +141,10 @@ function addNewTaskOnPage({ taskName, taskDesc, completed, _id }) {
   return card;
 }
 
+function addNewTaskToLocalStorage(task) {
+  localStorage.setItem(task._id, JSON.stringify(task));
+}
+
 /* end! add task functions */
 
 /* start! delete task functions */
@@ -153,6 +157,7 @@ function deleteTask(e) {
       parent.getAttribute("data-task-id")
     );
     deleteTaskFromPage(isConfirmed, parent);
+    deleteTaskFromLocalStorage(isConfirmed, parent);
   }
 }
 
@@ -168,6 +173,11 @@ function deleteTaskFromObject(id) {
 function deleteTaskFromPage(confirmed, task) {
   if (!confirmed) return;
   task.remove();
+}
+
+function deleteTaskFromLocalStorage(confirmed, task) {
+  if (!confirmed) return;
+  localStorage.removeItem(task.getAttribute("data-task-id"));
 }
 
 /* end! delete task functions */
@@ -190,12 +200,27 @@ function completeTask(e) {
 }
 
 function objectCompletePropertySwitcher(id) {
-  if (tasks[id].complete) {
-    tasks[id].complete = false;
+  const taskFromLocalStorage = JSON.parse(
+    localStorage.getItem(`${tasks[id]._id}`)
+  );
+  if (tasks[id].completed) {
+    tasks[id].completed = false;
+    if (taskFromLocalStorage) {
+      localStorageCompletePropertySwitcher(
+        taskFromLocalStorage,
+        tasks[id].completed
+      );
+    }
   } else {
-    tasks[id].complete = true;
+    tasks[id].completed = true;
+    if (taskFromLocalStorage) {
+      localStorageCompletePropertySwitcher(
+        taskFromLocalStorage,
+        tasks[id].completed
+      );
+    }
   }
-  return tasks[id].complete;
+  return tasks[id].completed;
 }
 
 function pageCompletePropertySwitcher(isComplete, taskCard, button) {
@@ -218,6 +243,11 @@ function pageCompletePropertySwitcher(isComplete, taskCard, button) {
     editButton.classList.remove("task-card__edit_inaccessible");
     editButton.setAttribute("href", "#");
   }
+}
+
+function localStorageCompletePropertySwitcher(task, isCompleted) {
+  task.completed = isCompleted;
+  localStorage.setItem(task._id, JSON.stringify(task));
 }
 
 /* end! complete task functions */
@@ -263,7 +293,22 @@ function toggleEditMode(taskName, taskDesc, editButton, completeButton) {
     editButton.classList.remove("task-card__edit_editable");
     completeButton.classList.remove("task-card__complete_inaccessible");
     completeButton.setAttribute("href", "#");
+    saveEditedTaskInLocalStorage(
+      taskName.textContent,
+      taskDesc.textContent,
+      editButton
+    );
   }
+}
+
+function saveEditedTaskInLocalStorage(taskName, taskDesc, editButton) {
+  const taskCard = editButton.closest(".task-card");
+  const id = taskCard.getAttribute("data-task-id");
+  const localStorageTask = JSON.parse(localStorage.getItem(id));
+  console.log(localStorageTask);
+  localStorageTask.taskName = taskName;
+  localStorageTask.taskDesc = taskDesc;
+  localStorage.setItem(id, JSON.stringify(localStorageTask));
 }
 
 /* end! edit task functions */
@@ -279,3 +324,15 @@ function changeTheme(e) {
 }
 
 /* end! change theme functions */
+
+/* start! localStorage functions */
+
+function getAllTasksFromLocalStorage() {
+  for (let key in localStorage) {
+    if (key.split("-")[0] === "task") {
+      tasks[key] = JSON.parse(localStorage.getItem(key));
+    }
+  }
+}
+
+/* end! localStorage functions */
