@@ -36,13 +36,15 @@ const taskCardsContainer = document.querySelector(".tasks-section__container");
 const taskCardButtonsPattern = `<a class="task-card__complete" href="#">Выполнено</a>
                                 <a class="task-card__edit" href="#">Редактировать</a>
                                 <a class="task-card__remove" href="#">Удалить</a>`;
+const themeFromLocalStorage = localStorage.getItem("theme") || "default";
 
 form.addEventListener("submit", addNewTask);
 taskCardsContainer.addEventListener("click", deleteTask);
 taskCardsContainer.addEventListener("click", completeTask);
 taskCardsContainer.addEventListener("click", editTask);
-changeThemeButton.addEventListener("change", changeTheme);
+changeThemeButton.addEventListener("change", changeThemeByClick);
 
+changeTheme(themes[themeFromLocalStorage])
 getAllTasksFromLocalStorage();
 renderAllTasks(tasks);
 
@@ -65,7 +67,7 @@ function renderAllTasks(tasks) {
   sortedArray.forEach((task) => {
     const newTask = addNewTaskOnPage(task);
     fragment.appendChild(newTask);
-  })
+  });
 
   taskCardsContainer.appendChild(fragment);
 }
@@ -303,9 +305,14 @@ function saveEditedTaskInLocalStorage(taskName, taskDesc, editButton) {
 
 /* start! change theme functions */
 
-function changeTheme(e) {
+function changeThemeByClick(e) {
   const selectedTheme = changeThemeButton.value;
   const themeFromObject = themes[selectedTheme];
+  changeTheme(themeFromObject);
+  localStorage.setItem("theme", selectedTheme);
+}
+
+function changeTheme(themeFromObject) {
   Object.entries(themeFromObject).forEach(([key, value]) => {
     document.documentElement.style.setProperty(key, value);
   });
