@@ -17,6 +17,10 @@ html(lang="ru")
           textarea.form__task-desc(placeholder="Введите описание задачи" required)
           button.form__btn(type="submit") Добавить задачу
       .tasks-section
+        .tasks-section__filter-buttons
+            a.tasks-section__filter-button(href="#") завершённые
+            a.tasks-section__filter-button(href="#") активные
+            a.tasks-section__filter-button.tasks-section__filter-button_is-active(href="#") все
         .tasks-section__container
 
 

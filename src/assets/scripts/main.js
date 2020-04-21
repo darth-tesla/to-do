@@ -37,12 +37,19 @@ const taskCardButtonsPattern = `<a class="task-card__complete" href="#">Выпо
                                 <a class="task-card__edit" href="#">Редактировать</a>
                                 <a class="task-card__remove" href="#">Удалить</a>`;
 const themeFromLocalStorage = localStorage.getItem("theme") || "default";
+const filterButtonsContainer = document.querySelector(
+  ".tasks-section__filter-buttons"
+);
+const filterButtons = document.querySelectorAll(
+  ".tasks-section__filter-button"
+);
 
 form.addEventListener("submit", addNewTask);
 taskCardsContainer.addEventListener("click", deleteTask);
 taskCardsContainer.addEventListener("click", completeTask);
 taskCardsContainer.addEventListener("click", editTask);
 changeThemeButton.addEventListener("change", changeThemeByClick);
+filterButtonsContainer.addEventListener("click", switchFilter);
 
 changeTheme(themes[themeFromLocalStorage]);
 getAllTasksFromLocalStorage();
@@ -236,18 +243,34 @@ function pageCompletePropertySwitcher(isComplete, taskCard, button) {
 
   if (isComplete) {
     button.textContent = "Не выполнено";
+    taskCard.classList.add("task-card_completed");
     button.classList.add("task-card__complete_is-complete");
     title.classList.add("task-card__task-name_is-complete");
     desc.classList.add("task-card__task-desc_is-complete");
     editButton.classList.add("task-card__edit_inaccessible");
     editButton.removeAttribute("href");
+    if (
+      filterButtons[1].classList.contains(
+        "tasks-section__filter-button_is-active"
+      )
+    ) {
+      taskCard.style = "display: none;";
+    }
   } else {
     button.textContent = "Выполнено";
+    taskCard.classList.remove("task-card_completed");
     button.classList.remove("task-card__complete_is-complete");
     title.classList.remove("task-card__task-name_is-complete");
     desc.classList.remove("task-card__task-desc_is-complete");
     editButton.classList.remove("task-card__edit_inaccessible");
     editButton.setAttribute("href", "#");
+    if (
+      filterButtons[0].classList.contains(
+        "tasks-section__filter-button_is-active"
+      )
+    ) {
+      taskCard.style = "display: none;";
+    }
   }
 }
 
@@ -363,6 +386,36 @@ function createDateString() {
   return `${String(dd).length === 1 ? "0" + dd : dd}.${
     String(mm).length === 1 ? "0" + (mm + 1) : mm + 1
   }.${yyyy} ${hour}:${min}`;
+}
+
+/* end! date functions */
+
+/* start! filter functions */
+
+function switchFilter(e) {
+  if (e.target) {
+    e.preventDefault();
+    const target = e.target;
+    filterButtons.forEach((item, index) => {
+      item.classList.remove("tasks-section__filter-button_is-active");
+      if (item === target) {
+        filterCards(index);
+        item.classList.add("tasks-section__filter-button_is-active");
+      }
+    });
+  }
+}
+
+function filterCards(index) {
+  const cards = document.querySelectorAll(".task-card");
+  cards.forEach((card) => {
+    card.style = "display: block";
+    if (!card.classList.contains("task-card_completed") && index === 0) {
+      card.style = "display: none;";
+    } else if (card.classList.contains("task-card_completed") && index === 1) {
+      card.style = "display: none;";
+    }
+  });
 }
 
 /* end! date functions */
