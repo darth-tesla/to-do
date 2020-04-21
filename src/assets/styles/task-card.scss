@@ -6,8 +6,14 @@
   border-radius: 10px;
   box-shadow: 0px 10px 10px 3px rgba(0, 0, 0, 0.5);
   box-sizing: border-box;
-  &__task-name {
+  &__header-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     margin-bottom: 10px;
+  }
+  &__task-name {
+    margin-right: 10px;
     padding: 4px;
     border-radius: 3px;
     font-family: "Montserrat-Medium", Arial, Helvetica, sans-serif;
@@ -20,6 +26,10 @@
     &_box-shadow {
       box-shadow: 0px 0px 5px 2px var(--complete-hover);
     }
+  }
+  &__date {
+    font-family: "Montserrat-LightItalic", Arial, Helvetica, sans-serif;
+    font-size: 13px;
   }
   &__task-desc {
     margin-bottom: 40px;

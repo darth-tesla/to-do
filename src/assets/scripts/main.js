@@ -44,7 +44,7 @@ taskCardsContainer.addEventListener("click", completeTask);
 taskCardsContainer.addEventListener("click", editTask);
 changeThemeButton.addEventListener("change", changeThemeByClick);
 
-changeTheme(themes[themeFromLocalStorage])
+changeTheme(themes[themeFromLocalStorage]);
 getAllTasksFromLocalStorage();
 renderAllTasks(tasks);
 
@@ -92,6 +92,7 @@ function addNewTaskToObject(taskName, taskDesc, timestamp) {
   const newTask = {
     taskName,
     taskDesc,
+    creationDate: createDateString(),
     timestamp,
     completed: false,
     _id: `task-${Math.random()}`,
@@ -102,22 +103,30 @@ function addNewTaskToObject(taskName, taskDesc, timestamp) {
   return { ...newTask };
 }
 
-function addNewTaskOnPage({ taskName, taskDesc, completed, _id }) {
+function addNewTaskOnPage({ taskName, taskDesc, completed, creationDate, _id }) {
   const card = document.createElement("div");
+  const headerRow = document.createElement("div");
   const name = document.createElement("h3");
+  const date = document.createElement("span");
   const desc = document.createElement("p");
   const buttons = document.createElement("div");
 
   card.classList.add("task-card");
+  headerRow.classList.add("task-card__header-row");
   name.classList.add("task-card__task-name");
+  date.classList.add("task-card__date");
   desc.classList.add("task-card__task-desc");
   buttons.classList.add("task-card__btns");
 
   name.textContent = taskName;
+  date.textContent = creationDate;
   desc.textContent = taskDesc;
   buttons.innerHTML = taskCardButtonsPattern;
 
-  card.appendChild(name);
+  headerRow.appendChild(name);
+  headerRow.appendChild(date);
+
+  card.appendChild(headerRow);
   card.appendChild(desc);
   card.appendChild(buttons);
 
@@ -331,3 +340,17 @@ function getAllTasksFromLocalStorage() {
 }
 
 /* end! localStorage functions */
+
+/* start! date functions */
+
+function createDateString() {
+  const date = new Date();
+  const min = date.getMinutes();
+  const hour = date.getHours();
+  const dd = date.getDate()
+  const mm = date.getMonth();
+  const yyyy = date.getFullYear();
+  return `${(String(dd)).length === 1 ? "0" + dd : dd}.${(String(mm)).length === 1 ? "0" + mm : mm}.${yyyy} ${hour}:${min}`
+}
+
+/* end! date functions */
