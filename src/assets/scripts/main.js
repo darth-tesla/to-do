@@ -103,7 +103,13 @@ function addNewTaskToObject(taskName, taskDesc, timestamp) {
   return { ...newTask };
 }
 
-function addNewTaskOnPage({ taskName, taskDesc, completed, creationDate, _id }) {
+function addNewTaskOnPage({
+  taskName,
+  taskDesc,
+  completed,
+  creationDate,
+  _id,
+}) {
   const card = document.createElement("div");
   const headerRow = document.createElement("div");
   const name = document.createElement("h3");
@@ -283,21 +289,25 @@ function toggleEditMode(taskName, taskDesc, editButton, completeButton) {
     completeButton.classList.add("task-card__complete_inaccessible");
     completeButton.removeAttribute("href");
   } else {
-    taskName.removeAttribute("contentEditable");
-    taskName.removeAttribute("spellcheck");
-    taskName.classList.remove("task-card__task-name_box-shadow");
-    taskDesc.removeAttribute("contentEditable");
-    taskDesc.removeAttribute("spellcheck");
-    taskDesc.classList.remove("task-card__task-desc_box-shadow");
-    editButton.textContent = "Редактировать";
-    editButton.classList.remove("task-card__edit_editable");
-    completeButton.classList.remove("task-card__complete_inaccessible");
-    completeButton.setAttribute("href", "#");
-    saveEditedTaskInLocalStorage(
-      taskName.textContent,
-      taskDesc.textContent,
-      editButton
-    );
+    if (taskName.textContent === "" || taskDesc.textContent === "") {
+      alert("Название и описание задачи не могут быть пустыми!");
+    } else {
+      taskName.removeAttribute("contentEditable");
+      taskName.removeAttribute("spellcheck");
+      taskName.classList.remove("task-card__task-name_box-shadow");
+      taskDesc.removeAttribute("contentEditable");
+      taskDesc.removeAttribute("spellcheck");
+      taskDesc.classList.remove("task-card__task-desc_box-shadow");
+      editButton.textContent = "Редактировать";
+      editButton.classList.remove("task-card__edit_editable");
+      completeButton.classList.remove("task-card__complete_inaccessible");
+      completeButton.setAttribute("href", "#");
+      saveEditedTaskInLocalStorage(
+        taskName.textContent,
+        taskDesc.textContent,
+        editButton
+      );
+    }
   }
 }
 
@@ -347,10 +357,12 @@ function createDateString() {
   const date = new Date();
   const min = date.getMinutes();
   const hour = date.getHours();
-  const dd = date.getDate()
+  const dd = date.getDate();
   const mm = date.getMonth();
   const yyyy = date.getFullYear();
-  return `${(String(dd)).length === 1 ? "0" + dd : dd}.${(String(mm)).length === 1 ? "0" + mm : mm}.${yyyy} ${hour}:${min}`
+  return `${String(dd).length === 1 ? "0" + dd : dd}.${
+    String(mm).length === 1 ? "0" + (mm + 1) : mm + 1
+  }.${yyyy} ${hour}:${min}`;
 }
 
 /* end! date functions */
