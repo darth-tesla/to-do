@@ -1,12 +1,12 @@
 :root {
   --bg: url("/default-bg.jpg") no-repeat;
   --card: #ffffff;
-  --default: hsla(242, 60%, 35%, 1);
-  --default-hover: hsla(242, 90%, 35%, 1);
-  --complete: hsla(124, 60%, 35%, 1);
-  --complete-hover: hsla(124, 90%, 35%, 1);
-  --danger: hsla(360, 60%, 35%, 1);
-  --danger-hover: hsla(360, 90%, 35%, 1);
+  --default: #1e88e5;
+  --default-hover: #1976d2;
+  --complete: #76ff03;
+  --complete-hover: #64dd17;
+  --danger: #c62828;
+  --danger-hover: #b71c1c;
   --borders: hsla(242, 1%, 35%, 0.5);
   --fog: rgba(0, 0, 0, 0.6);
 }
@@ -15,15 +15,3 @@ $sm: 576px;
 $md: 768px;
 $lg: 992px;
 
-/*
-  --bg: url("/dark-bg.jpg") no-repeat;
-  --card: hsla(30, 6%, 20%, 1);
-  --default: hsla(242, 60%, 22%, 1);
-  --default-hover: hsla(242, 90%, 35%, 1);
-  --complete: hsla(124, 60%, 35%, 1);
-  --complete-hover: hsla(124, 90%, 35%, 1);
-  --danger: hsla(360, 94%, 45%, 1);
-  --danger-hover: hsla(360, 94%, 60%, 1);
-  --borders: hsla(242, 1%, 35%, 0.5);
-  --fog: rgba(0, 0, 0, 0.6);
-*/
